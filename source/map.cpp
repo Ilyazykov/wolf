@@ -4,6 +4,8 @@
 
 #include "map.h"
 
+Map::Map(int width, int height) : cells(height, std::vector<int>(width, 0)) {}
+
 Map::Map(const std::string& mapfilePath) {
     std::ifstream file(mapfilePath);
     if (!file.is_open()) {
@@ -20,7 +22,7 @@ Map::Map(const std::string& mapfilePath) {
         while (iss >> value) {
             row.push_back(value);
         }
-        cells.push_back(row);
+        cells.push_back(row); // TODO: FIX - not sure this is effective because of copy
     }
 }
 
