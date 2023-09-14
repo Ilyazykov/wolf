@@ -14,3 +14,7 @@ int RealCoordinateConverter::getScale(){
 Vec2d RealCoordinateConverter::toMapCoordinate(Vec2d input) {
     return {input.x / scale, input.y / scale};
 }
+
+Vec2d RealCoordinateConverter::toTopLeftCornerRealCoordinate(Vec2d mapCoordinate) {
+    return { mapCoordinate.x * scale, mapCoordinate.y * scale };
+}

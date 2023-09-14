@@ -65,3 +65,37 @@ TEST(GameMapTest, RealTestMap) {
     EXPECT_TRUE(std::filesystem::exists(filepath));
     EXPECT_NO_THROW(Map{filepath}); // map(mapfile path)
 }
+
+TEST(GameMapTest, GetValueByMapCoordinate) {
+    std::string filepath = "maps/correct_test_map.map";
+    EXPECT_TRUE(std::filesystem::exists(filepath));
+
+    Map map{filepath}; // map(mapfile path)
+
+    int x = 2; int y = 1;
+    char res = map.getValue(x, y);
+
+    EXPECT_EQ(res, '6');
+}
+
+TEST(GameMapTest, GetWidth) {
+    std::string filepath = "maps/correct_test_map.map";
+    EXPECT_TRUE(std::filesystem::exists(filepath));
+
+    Map map{filepath}; // map(mapfile path)
+
+    int res = map.getWidth();
+
+    EXPECT_EQ(res, 3);
+}
+
+TEST(GameMapTest, GetHeight) {
+    std::string filepath = "maps/correct_test_map.map";
+    EXPECT_TRUE(std::filesystem::exists(filepath));
+
+    Map map{filepath}; // map(mapfile path)
+
+    int res = map.getHeight();
+
+    EXPECT_EQ(res, 2);
+}

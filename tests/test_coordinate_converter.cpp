@@ -46,3 +46,13 @@ TEST(CoordinateConverterTest, CheckCenter) {
     Vec2d expected = { 2, 2 };
     EXPECT_EQ(mapPos, expected);
 }
+
+TEST(CoordinateConverterTest, CheckMapToRealTopLeftCorner) {
+    Vec2d mapPos = { 1, 1 };
+
+    Vec2d realPosRes = RealCoordinateConverter::toTopLeftCornerRealCoordinate(mapPos);
+    
+    Vec2d realPosExpected = { static_cast<int>(RealCoordinateConverter::getScale()), 
+                              static_cast<int>(RealCoordinateConverter::getScale()) };
+    EXPECT_EQ(realPosRes, realPosExpected);
+}
