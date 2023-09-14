@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS += -std=c++14 -Wall -Wextra -pthread -isystem
+CXXFLAGS += -std=c++17 -Wall -Wextra -pthread -isystem
 LDFLAGS += -pthread -lgtest -lgtest_main
 
 INCLUDES = -I./ -I../includes
