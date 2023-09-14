@@ -1,17 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include <utility>
-
-struct Position {
-    int x;
-    int y;
-};
-
-struct Direction {
-    int dx;
-    int dy;
-};
+#include "realCoordinateConverter.h"
 
 class Character {
 public:
@@ -19,7 +9,7 @@ public:
     Character(const Character& other);
     Character(Character&& other);
     
-    Character(Position pos, Direction dir = {0, 0}, int speed = 0);
+    Character(Vec2d position, Vec2d direction = {0, 0}, int speed = 0);
 
     Character& operator=(const Character& other);
     Character& operator=(Character&& other);
@@ -27,8 +17,8 @@ public:
     ~Character();
 
 private:
-    Position pos;
-    Direction dir;
+    Vec2d position;
+    Vec2d direction;
     int speed;
 };
 
