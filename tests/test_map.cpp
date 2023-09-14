@@ -58,3 +58,10 @@ TEST(GameMapTest, LoadIncorrectMapFromFile) {
 
     EXPECT_EQ(output, "1 2 3 \na 4 5 \n");
 }
+
+TEST(GameMapTest, RealTestMap) {
+    std::string filepath = "maps/real_test.map";
+
+    EXPECT_TRUE(std::filesystem::exists(filepath));
+    EXPECT_NO_THROW(Map{filepath}); // map(mapfile path)
+}
