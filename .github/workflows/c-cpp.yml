@@ -15,7 +15,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up build environment
+    - name: Set up build environment (1 step)
+      run: sudo apt-get update
+
+    - name: Set up build environment (2 step)
       run: sudo apt-get install -y build-essential libsfml-dev libgtest-dev
       
     - name: Build project
