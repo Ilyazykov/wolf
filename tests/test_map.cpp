@@ -58,8 +58,3 @@ TEST(GameMapTest, LoadIncorrectMapFromFile) {
 
     EXPECT_EQ(output, "1 2 3 \na 4 5 \n");
 }
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
