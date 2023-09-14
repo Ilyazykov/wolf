@@ -22,7 +22,7 @@ Map::Map(const std::string& mapfilePath) {
         while (iss >> value) {
             row.push_back(value);
         }
-        cells.push_back(row); // TODO: FIX - not sure this is effective because of copy
+        cells.emplace_back(std::move(row));
     }
 }
 
