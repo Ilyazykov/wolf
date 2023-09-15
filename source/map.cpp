@@ -40,6 +40,18 @@ Map::Map(const std::string& mapfilePath) {
     }
 }
 
+char Map::getValue(int x, int y) const {
+    return cells[y][x];
+}
+
+int Map::getWidth() const {
+    return cells.at(0).size();
+}
+
+int Map::getHeight() const {
+    return cells.size();
+}
+
 std::ostream& operator<<(std::ostream& os, const Map& map) {
     for (auto& row : map.cells) {
         for (char cell : row) {

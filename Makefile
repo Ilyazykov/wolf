@@ -1,5 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra
+LDFLAGS += -pthread -lsfml-graphics -lsfml-window -lsfml-system
 
 INCLUDES = -I./ -I./includes
 SRC_DIR = source
@@ -15,7 +16,7 @@ EXECUTABLE = $(BUILD_DIR)/main
 all: $(BUILD_DIR) $(EXECUTABLE)
 
 $(EXECUTABLE): $(MAIN_OBJECT) $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(MAIN_OBJECT) $(OBJECTS) -o $(EXECUTABLE)
+	$(CXX) $(LDFLAGS) $(MAIN_OBJECT) $(OBJECTS) -o $(EXECUTABLE)
 
 $(BUILD_DIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@

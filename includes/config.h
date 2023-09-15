@@ -1,9 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-const char WALL = '#';
-const char CHARACTER = 'c';
-const char SPACE = '_';
+const char MAP_TILE_WALL = '#';
+const char MAP_TILE_CHARACTER = 'c';
+const char MAP_TILE_SPACE = '_';
 
 const int SCALE = 10;
 

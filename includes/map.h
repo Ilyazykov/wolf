@@ -19,6 +19,10 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Map& map);
 
+    char getValue(int x, int y) const;
+    int getWidth() const;
+    int getHeight() const;
+
 private:
     std::vector<std::vector<char>> cells;
 };

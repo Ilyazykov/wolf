@@ -2,13 +2,13 @@
 #include "config.h"
 
 TEST(GameConstTest, CheckWall) {
-    EXPECT_EQ(WALL, '#');
+    EXPECT_EQ(MAP_TILE_WALL, '#');
 }
 
 TEST(GameConstTest, CheckSpace) {
-    EXPECT_EQ(SPACE, '_');
+    EXPECT_EQ(MAP_TILE_SPACE, '_');
 }
 
 TEST(GameConstTest, CheckCharacter) {
-    EXPECT_EQ(CHARACTER, 'c');
+    EXPECT_EQ(MAP_TILE_CHARACTER, 'c');
 }

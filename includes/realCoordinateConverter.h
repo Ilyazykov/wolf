@@ -13,6 +13,7 @@ class RealCoordinateConverter {
 public:
     static int getScale();
     static Vec2d toMapCoordinate(Vec2d input);
+    static Vec2d toTopLeftCornerRealCoordinate(Vec2d mapCoordinate);
 };
 
 #endif // REAL_COORDINATE_CONVERTER_H
