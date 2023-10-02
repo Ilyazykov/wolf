@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS += -std=c++17 -Wall -Wextra -pthread -isystem
-LDFLAGS += -pthread -lgtest -lgtest_main
+LDFLAGS += -pthread -lgtest -lgtest_main -lsfml-graphics -lsfml-window -lsfml-system
 
 INCLUDES = -I./ -I../includes
 SRC_DIR = ../source
