@@ -13,8 +13,9 @@ namespace MapPainter {
         std::cout << map << std::endl;
     }
 
-    void SFML::paint(const Map& map, const Camera& camera) { // TODO warning: unused parameter 'camera'
-        auto secondCoords = getScreenPointCoords(camera);
+    void SFML::paint(const Map& map, const Camera& camera) {
+        auto screenCoords = getScreenPointCoords(camera);
+        auto secondCoords = getIntersectionPointCoords(camera, map);
 
         sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_NAME);
 
@@ -62,6 +63,11 @@ namespace MapPainter {
                 window.draw(lines);
 
                 point.setPosition(secondCoord.x, secondCoord.y);
+                window.draw(point);
+            }
+
+            for (auto screenCoord : screenCoords) {
+                point.setPosition(screenCoord.x, screenCoord.y);
                 window.draw(point);
             }
 
