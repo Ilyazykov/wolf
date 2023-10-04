@@ -9,11 +9,13 @@
 #include "realCoordinateConverter.h"
 
 namespace MapPainter {
-    void Stdout::paint(const Map& map) {
+    void Stdout::paint(const Map& map, const Camera& camera) { // TODO warning: unused parameter 'camera'
         std::cout << map << std::endl;
     }
 
-    void SFML::paint(const Map& map) {
+    void SFML::paint(const Map& map, const Camera& camera) { // TODO warning: unused parameter 'camera'
+        auto secondCoords = getScreenPointCoords(camera);
+
         sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_NAME);
 
         int scale = RealCoordinateConverter::getScale();
@@ -45,6 +47,22 @@ namespace MapPainter {
                         window.draw(rect);
                     }
                 }
+            }
+
+            sf::CircleShape point(2.0f);
+            point.setFillColor(sf::Color::Yellow);
+
+            point.setPosition(camera.position.x, camera.position.y);
+            window.draw(point);
+            
+            for (auto secondCoord : secondCoords) {
+                sf::VertexArray lines(sf::Lines, 2);
+                lines[0] = sf::Vertex(sf::Vector2f(camera.position.x, camera.position.y));
+                lines[1] = sf::Vertex(sf::Vector2f(secondCoord.x, secondCoord.y));
+                window.draw(lines);
+
+                point.setPosition(secondCoord.x, secondCoord.y);
+                window.draw(point);
             }
 
             window.display();
