@@ -4,16 +4,19 @@
 #include <SFML/Graphics.hpp>
 
 #include "map.h"
-#include "character.h"
+#include "camera.h"
 #include "mapPainter.h"
+#include "realCoordinateConverter.h"
 
 
 int main() {
     Map map("maps/1.map");
-    Character ch({15,15}, {0,1}, 0);
+
+    Vec2d<int> cameraPos = RealCoordinateConverter::toCenterRealCoordinate({1, 1});
+    Camera camera({(double)cameraPos.x, (double)cameraPos.y}, {1,2}, 0);
 
     std::unique_ptr<MapPainter::Painter> mapPainter = std::make_unique<MapPainter::SFML>();
-    mapPainter->paint(map);
+    mapPainter->paint(map, camera);
 
     return 0;
 }

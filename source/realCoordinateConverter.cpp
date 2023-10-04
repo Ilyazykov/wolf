@@ -3,18 +3,18 @@
 
 int RealCoordinateConverter::scale = SCALE;
 
-bool Vec2d::operator==(const Vec2d& other) const {
-    return x == other.x && y == other.y;
-}
-
 int RealCoordinateConverter::getScale(){
     return scale;
 }
 
-Vec2d RealCoordinateConverter::toMapCoordinate(Vec2d input) {
+Vec2d<int> RealCoordinateConverter::toMapCoordinate(Vec2d<int> input) {
     return {input.x / scale, input.y / scale};
 }
 
-Vec2d RealCoordinateConverter::toTopLeftCornerRealCoordinate(Vec2d mapCoordinate) {
+Vec2d<int> RealCoordinateConverter::toTopLeftCornerRealCoordinate(Vec2d<int> mapCoordinate) {
     return { mapCoordinate.x * scale, mapCoordinate.y * scale };
+}
+
+Vec2d<int> RealCoordinateConverter::toCenterRealCoordinate(Vec2d<int> mapCoordinate) {
+    return { ((2*mapCoordinate.x + 1) * scale)/2, ((2*mapCoordinate.y + 1) * scale)/2 };
 }
