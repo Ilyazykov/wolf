@@ -2,6 +2,8 @@
 #define CHARACTER_H
 
 #include "realCoordinateConverter.h"
+#include "config.h"
+#include "map.h"
 
 class Camera {
 public:
@@ -14,9 +16,16 @@ public:
     Camera& operator=(const Camera& other);
     Camera& operator=(Camera&& other);
 
+    Vec2d<double> getPosition() const;
+
+    std::vector<Vec2d<double>> getScreenPointCoords() const;
+    std::vector<Vec2d<double>> getIntersectionPointCoords(const Map& map) const;
+
     ~Camera();
 
-public: // TODO change to private
+private:
+    Vec2d<double> getIntersectionPointCoord(const Vec2d<double>& onScreenCoord, const Map& map) const;
+
     Vec2d<double> position;
     Vec2d<double> direction;
     int speed;
