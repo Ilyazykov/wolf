@@ -35,9 +35,7 @@ namespace MapPainter {
     class RayCasting : public Painter {
     public:
         RayCasting() = default;
-        virtual void paint([[maybe_unused]] const Map& map, [[maybe_unused]] const Camera& camera) {
-            // TODO
-        }
+        virtual void paint(const Map& map, const Camera& camera);
     };
 }
 

@@ -9,7 +9,11 @@
 #include "realCoordinateConverter.h"
 
 namespace MapPainter {
-    void Stdout::paint(const Map& map, [[maybe_unused]] const Camera& camera) { // TODO warning: unused parameter 'camera'
+    void RayCasting::paint([[maybe_unused]] const Map& map, [[maybe_unused]] const Camera& camera) {
+        // TODO
+    }
+
+    void Stdout::paint(const Map& map, [[maybe_unused]] const Camera& camera) {
         std::cout << map << std::endl;
     }
 
