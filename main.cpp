@@ -15,7 +15,7 @@ int main() {
     Vec2d<int> cameraPos = RealCoordinateConverter::toCenterRealCoordinate({1, 1});
     Camera camera({(double)cameraPos.x, (double)cameraPos.y}, {1,2}, 0);
 
-    std::unique_ptr<MapPainter::Painter> mapPainter = std::make_unique<MapPainter::SFML>();
+    std::unique_ptr<MapPainter::Painter> mapPainter = std::make_unique<MapPainter::RayCasting>();
     mapPainter->paint(map, camera);
 
     return 0;

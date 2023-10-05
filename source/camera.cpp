@@ -78,6 +78,40 @@ std::vector<Vec2d<double>> Camera::getScreenPointCoords() const {
     return res; // TODO: check of extra copy constructor for Vec2d (not should) 
 }
 
+std::vector<double> Camera::getDistancesToScreen() const {
+    std::vector<double> res;
+
+    auto secondCoords = getScreenPointCoords();
+
+    for (int i = 0; i < secondCoords.size(); ++i) {
+        double dx = (position.x - secondCoords[i].x);
+        double dy = (position.y - secondCoords[i].y);
+
+        double dist = sqrt(dx*dx + dy*dy);
+
+        res.push_back(dist);
+    }
+
+    return res;
+}
+
+std::vector<double> Camera::getDistancesToIntersections(const Map& map) const {
+    std::vector<double> res;
+
+    auto secondCoords = getIntersectionPointCoords(map);
+
+    for (int i = 0; i < secondCoords.size(); ++i) {
+        double dx = (position.x - secondCoords[i].x);
+        double dy = (position.y - secondCoords[i].y);
+
+        double dist = sqrt(dx*dx + dy*dy);
+
+        res.push_back(dist);
+    }
+
+    return res;
+}
+
 std::vector<Vec2d<double>> Camera::getIntersectionPointCoords(const Map& map) const {
     std::vector<Vec2d<double>> res;
 
