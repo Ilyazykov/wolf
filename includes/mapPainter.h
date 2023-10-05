@@ -14,7 +14,7 @@ namespace MapPainter {
     class Painter {
     public:
         Painter() = default;
-        virtual void paint(const Map& map, const Camera& camera) = 0;
+        virtual void paint(const Map& map, const Camera& camera) const = 0;
         
         virtual ~Painter() = default;
     };
@@ -23,19 +23,19 @@ namespace MapPainter {
     class Stdout : public Painter {
     public:
         Stdout() = default;
-        virtual void paint(const Map& map, const Camera& camera);
+        virtual void paint(const Map& map, const Camera& camera) const;
     };
 
     class SFML : public Painter {
     public:
         SFML() = default;
-        virtual void paint(const Map& map, const Camera& camera);
+        virtual void paint(const Map& map, const Camera& camera) const;
     };
 
     class RayCasting : public Painter {
     public:
         RayCasting() = default;
-        virtual void paint(const Map& map, const Camera& camera);
+        virtual void paint(const Map& map, const Camera& camera) const;
     };
 }
 
