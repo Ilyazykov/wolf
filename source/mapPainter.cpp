@@ -9,13 +9,13 @@
 #include "realCoordinateConverter.h"
 
 namespace MapPainter {
-    void Stdout::paint(const Map& map, const Camera& camera) { // TODO warning: unused parameter 'camera'
+    void Stdout::paint(const Map& map, [[maybe_unused]] const Camera& camera) { // TODO warning: unused parameter 'camera'
         std::cout << map << std::endl;
     }
 
     void SFML::paint(const Map& map, const Camera& camera) {
-        auto screenCoords = getScreenPointCoords(camera);
-        auto secondCoords = getIntersectionPointCoords(camera, map);
+        auto screenCoords = camera.getScreenPointCoords();
+        auto secondCoords = camera.getIntersectionPointCoords(map);
 
         sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_NAME);
 
@@ -53,12 +53,12 @@ namespace MapPainter {
             sf::CircleShape point(2.0f);
             point.setFillColor(sf::Color::Yellow);
 
-            point.setPosition(camera.position.x, camera.position.y);
+            point.setPosition(camera.getPosition().x, camera.getPosition().y);
             window.draw(point);
             
             for (auto secondCoord : secondCoords) {
                 sf::VertexArray lines(sf::Lines, 2);
-                lines[0] = sf::Vertex(sf::Vector2f(camera.position.x, camera.position.y));
+                lines[0] = sf::Vertex(sf::Vector2f(camera.getPosition().x, camera.getPosition().y));
                 lines[1] = sf::Vertex(sf::Vector2f(secondCoord.x, secondCoord.y));
                 window.draw(lines);
 
