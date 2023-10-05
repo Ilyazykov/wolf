@@ -39,21 +39,10 @@ public:
     static Vec2d<int> toTopLeftCornerRealCoordinate(Vec2d<int> mapCoordinate);
     static Vec2d<int> toCenterRealCoordinate(Vec2d<int> mapCoordinate);
 
-    static int toLeftSideRealXCoordinate(int mapXCoordinate) {
-        return mapXCoordinate * scale; // TODO refactoring
-    }
-
-    static int toRightSideRealXCoordinate(int mapXCoordinate) {
-        return (mapXCoordinate + 1) * scale - 1; // TODO refactoring
-    }
-
-    static int toTopSideRealYCoordinate(int mapYCoordinate) {
-        return mapYCoordinate * scale; // TODO refactoring
-    }
-
-    static int toBottomSideRealYCoordinate(int mapYCoordinate) {
-        return (mapYCoordinate + 1) * scale - 1; // TODO refactoring
-    }
+    static int toLeftSideRealXCoordinate(int mapXCoordinate);
+    static int toRightSideRealXCoordinate(int mapXCoordinate);
+    static int toTopSideRealYCoordinate(int mapYCoordinate);
+    static int toBottomSideRealYCoordinate(int mapYCoordinate);
 };
 
 #endif // REAL_COORDINATE_CONVERTER_H
