@@ -21,6 +21,9 @@ public:
     std::vector<Vec2d<double>> getScreenPointCoords() const;
     std::vector<Vec2d<double>> getIntersectionPointCoords(const Map& map) const;
 
+    std::vector<double> getDistancesToScreen() const;
+    std::vector<double> getDistancesToIntersections(const Map& map) const;
+
     ~Camera();
 
 private:
