@@ -9,15 +9,15 @@
 #include "realCoordinateConverter.h"
 
 namespace MapPainter {
-    void RayCasting::paint([[maybe_unused]] const Map& map, [[maybe_unused]] const Camera& camera) {
+    void RayCasting::paint([[maybe_unused]] const Map& map, [[maybe_unused]] const Camera& camera) const {
         // TODO
     }
 
-    void Stdout::paint(const Map& map, [[maybe_unused]] const Camera& camera) {
+    void Stdout::paint(const Map& map, [[maybe_unused]] const Camera& camera) const {
         std::cout << map << std::endl;
     }
 
-    void SFML::paint(const Map& map, const Camera& camera) {
+    void SFML::paint(const Map& map, const Camera& camera) const {
         auto screenCoords = camera.getScreenPointCoords();
         auto secondCoords = camera.getIntersectionPointCoords(map);
 
@@ -43,7 +43,7 @@ namespace MapPainter {
                         if (map.getValue(x, y) == MAP_TILE_WALL) {
                             rect.setFillColor(sf::Color::Blue);
                         } else if (map.getValue(x, y) == MAP_TILE_CHARACTER) {
-                            rect.setFillColor(sf::Color::Red);
+                            rect.setFillColor(sf::Color::Green);
                         }
 
                         Vec2d pos = RealCoordinateConverter::toTopLeftCornerRealCoordinate({x, y});
@@ -65,12 +65,16 @@ namespace MapPainter {
                 lines[0] = sf::Vertex(sf::Vector2f(camera.getPosition().x, camera.getPosition().y));
                 lines[1] = sf::Vertex(sf::Vector2f(secondCoord.x, secondCoord.y));
                 window.draw(lines);
+            }
 
+            for (auto secondCoord : secondCoords) {
+                point.setFillColor(sf::Color::Red);
                 point.setPosition(secondCoord.x, secondCoord.y);
                 window.draw(point);
             }
 
             for (auto screenCoord : screenCoords) {
+                point.setFillColor(sf::Color::Yellow);
                 point.setPosition(screenCoord.x, screenCoord.y);
                 window.draw(point);
             }

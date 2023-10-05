@@ -2,6 +2,7 @@
 #include <sstream>
 
 #include "map.h"
+#include "config.h"
 
 Map::Map(const Map& other) {
     this->cells = other.cells;
@@ -41,6 +42,14 @@ Map::Map(const std::string& mapfilePath) {
 }
 
 char Map::getValue(int x, int y) const {
+    if (static_cast<std::vector<char>::size_type>(y) >= cells.size() || 
+        static_cast<std::vector<char>::size_type>(y) < 0 ||
+        static_cast<std::vector<char>::size_type>(x) >= cells[y].size() ||
+        static_cast<std::vector<char>::size_type>(x) < 0
+       )
+    {
+        return MAP_TILE_WALL;
+    }
     return cells[y][x];
 }
 

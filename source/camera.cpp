@@ -1,6 +1,7 @@
 #include "camera.h"
 
 #include <utility>
+#include <iostream>
 
 Camera::Camera() : position{0,0}, direction{0,0}, speed{0} {}
 
@@ -91,69 +92,68 @@ std::vector<Vec2d<double>> Camera::getIntersectionPointCoords(const Map& map) co
 
 Vec2d<double> Camera::getIntersectionPointCoord(const Vec2d<double>& onScreenCoord, const Map& map) const {
     Vec2d<double> res;
-
-    Vec2d<int> camera_map_coord = RealCoordinateConverter::toMapCoordinate(position);
     
-    if (onScreenCoord.x > position.x) { // TODO: fix bug
-        int nearest_map_x = camera_map_coord.x + 1;
-
-        for (int map_x = nearest_map_x; map_x < map.getWidth(); ++map_x) {
+    const Vec2d<int> camera_map_coord = RealCoordinateConverter::toMapCoordinate(position);
+    
+    Vec2d<double> res_x;
+    if (onScreenCoord.x > position.x) {
+        for (int map_x = camera_map_coord.x + 1; map_x < map.getWidth(); ++map_x) {
             double real_x = RealCoordinateConverter::toLeftSideRealXCoordinate(map_x);
-            double real_y = ((real_x - position.x) * onScreenCoord.y / onScreenCoord.x) + position.y;
+            
+            double t = (real_x - position.x) / (onScreenCoord.x - position.x);
+            double real_y = position.y + (onScreenCoord.y - position.y)*t;
 
             Vec2d<int> map_coords = RealCoordinateConverter::toMapCoordinate({static_cast<int>(real_x), static_cast<int>(real_y)});
             if (map.getValue(map_coords.x, map_coords.y) == MAP_TILE_WALL) {
-                res = {real_x, real_y};
+                res_x = {real_x, real_y};
                 break;
             }
         }
     } else {
-        int nearest_map_x = camera_map_coord.x;
-        
-        for (int map_x = nearest_map_x; map_x >= 0; --map_x) {
+        for (int map_x = camera_map_coord.x - 1; map_x >= 0; --map_x) {
             double real_x = RealCoordinateConverter::toRightSideRealXCoordinate(map_x);
-            double real_y = ((real_x - position.x) * onScreenCoord.y / onScreenCoord.x) + position.y;
+
+            double t = (real_x - position.x) / (onScreenCoord.x - position.x); // TODO fix potential division by zero
+            double real_y = position.y + (onScreenCoord.y - position.y)*t;
 
             Vec2d<int> map_coords = RealCoordinateConverter::toMapCoordinate({static_cast<int>(real_x), static_cast<int>(real_y)});
             if (map.getValue(map_coords.x, map_coords.y) == MAP_TILE_WALL) {
-                res = {real_x, real_y};
+                res_x = {real_x, real_y};
                 break;
             }
         }
     }
 
+    Vec2d<double> res_y;
     if (onScreenCoord.y > position.y) {
-        int nearest_map_y = camera_map_coord.y + 1;
-
-        for (int map_y = nearest_map_y; map_y < map.getHeight(); ++map_y) {
+        for (int map_y = camera_map_coord.y + 1; map_y < map.getHeight(); ++map_y) {
             double real_y = RealCoordinateConverter::toTopSideRealYCoordinate(map_y);
-            double real_x = ((real_y - position.y) * onScreenCoord.x / onScreenCoord.y) + position.x;
+
+            double t = (real_y - position.y) / (onScreenCoord.y - position.y);
+            double real_x = position.x + (onScreenCoord.x - position.x)*t;
 
             Vec2d<int> map_coords = RealCoordinateConverter::toMapCoordinate({static_cast<int>(real_x), static_cast<int>(real_y)});
             if (map.getValue(map_coords.x, map_coords.y) == MAP_TILE_WALL) {
-                if (real_y < res.y) {
-                    res = {real_x, real_y};
-                }
+                res_y = {real_x, real_y};
                 break;
             }
         }
     } else {
-        int nearest_map_y = camera_map_coord.y;
-        
-        for (int map_y = nearest_map_y; map_y >= 0; --map_y) {
+        for (int map_y = camera_map_coord.y - 1; map_y >= 0; --map_y) {
             double real_y = RealCoordinateConverter::toBottomSideRealYCoordinate(map_y);
-            double real_x = ((real_y - position.y) * onScreenCoord.x / onScreenCoord.y) + position.x;
+            
+            double t = (real_y - position.y) / (onScreenCoord.y - position.y); // TODO fix potential division by zero
+            double real_x = position.x + (onScreenCoord.x - position.x)*t;
 
             Vec2d<int> map_coords = RealCoordinateConverter::toMapCoordinate({static_cast<int>(real_x), static_cast<int>(real_y)});
             if (map.getValue(map_coords.x, map_coords.y) == MAP_TILE_WALL) {
-                if (real_y > res.y) {
-                    res = {real_x, real_y};
-                }
+                res_y = {real_x, real_y};
                 break;
             }
         }
     }
 
+    res = abs(res_x.x - position.x) < abs(res_y.x - position.x) ? res_x : res_y;
     return res;
 }
 
